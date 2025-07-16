@@ -114,13 +114,13 @@ monitor.start()
 
 duckdb.sql("PRAGMA threads=2")  # 병렬 제한
 
-def load_month_data(month, monitor=None):
+def load_month_data(year, month, monitor=None):
     query = f"""
         SELECT 
             date, o_admi_cd, o_cell_id, o_cell_x, o_cell_y, o_cell_tp,
             d_admi_cd, d_cell_id, d_cell_x, d_cell_y, d_cell_tp,
             move_purpose, move_dist, move_time, total_cnt
-        FROM '/home1/rldnjs16/transit/dataset/data_month/year=2024/month={month:02}/data.parquet'
+        FROM '/home1/rldnjs16/transit/dataset/data_month/year={year:04}/month={month:02}/data.parquet'
     """
     print(f"{month}월 데이터 로딩 중...")
     table = duckdb.query(query).arrow()
@@ -131,14 +131,20 @@ def load_month_data(month, monitor=None):
 
     return df
 
-df2406 = load_month_data(6, monitor)
-df2407 = load_month_data(7, monitor)
-df2408 = load_month_data(8, monitor)
-df2409 = load_month_data(6, monitor)
-df2410 = load_month_data(7, monitor)
-df2411 = load_month_data(8, monitor)
+df2406 = load_month_data(2024, 6, monitor)
+df2407 = load_month_data(2024, 7, monitor)
+df2408 = load_month_data(2024, 8, monitor)
+df2409 = load_month_data(2024, 9, monitor)
+df2410 = load_month_data(2024, 10, monitor)
+df2411 = load_month_data(2024, 11, monitor)
+df2412 = load_month_data(2024, 12, monitor)
+df2501 = load_month_data(2025, 1, monitor)
+df2502 = load_month_data(2025, 2, monitor)
+df2503 = load_month_data(2025, 3, monitor)
+df2504 = load_month_data(2025, 4, monitor)
+df2505 = load_month_data(2025, 5, monitor)
 
-df = pd.concat([df2406, df2407, df2408, df2409, df2410, df2411], ignore_index=True)
+df = pd.concat([df2406, df2407, df2408, df2409, df2410, df2411, df2412, df2501, df2502, df2503, df2504, df2505], ignore_index=True)
 
 monitor.checkpoint("DuckDB 데이터 로딩 (Arrow 방식)")
 

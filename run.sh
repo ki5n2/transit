@@ -5,10 +5,10 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1          # ntasks = nodes x ntasks-per-node
 #SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=1          # 하나의 태스크가 사용할 CPU 코어 수를 48개로 설정
+#SBATCH --cpus-per-task=8          # 하나의 태스크가 사용할 CPU 코어 수를 48개로 설정
 
-#SBATCH --partition=gpu6          # 사용할 파티션 이름 (클러스터 환경에 맞게 변경)
-#SBATCH --nodelist=n036        # 사용할 노드 이름
+#SBATCH --partition=gpu4          # 사용할 파티션 이름 (클러스터 환경에 맞게 변경)
+#SBATCH --nodelist=n081        # 사용할 노드 이름
 
 ##SBATCH --gres=gpu:rtx3090:1                     # GPU 1개 할당 (GPU가 필요한 경우)     
 #SBATCH --gres=gpu:1
@@ -31,4 +31,4 @@ source /home1/rldnjs16/ENTER/etc/profile.d/conda.sh         # Conda 환경(ython
 conda activate city # city라는 conda 환경에서, 슈퍼컴퓨팅 쓸 준비 완료
 
 # Python 스크립트 실행
-python /home1/rldnjs16/transit/transit_sample3.py 
+python /home1/rldnjs16/transit/transit_sample_test.py 
